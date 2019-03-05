@@ -15,25 +15,62 @@ const inventors = [
   { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968 },
   { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
 ];
-const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes,
-Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc,
-Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion,
-David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana',
- 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio,
- Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra',
-  'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan,
-  Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve',
-  'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair,
-   Robert', 'Blair, Tony', 'Blake, William'];
+const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick',
+ 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem',
+ 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter',
+ 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester',
+ 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar',
+ 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra',
+  'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin',
+  'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve',
+  'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk',
+  'Blair, Robert', 'Blair, Tony', 'Blake, William'];
 // Array.prototype.filter()
 // 1. Filter the list of inventors for those who were born in the 1500's
+/* The long version of the function
+const fifteen = inventors.filter(function(inventor) {
+  if (inventor.year >= 1500 && inventor.year < 1600) {
+    return true;
+  }
+})*/
+// reduced version of function
+const fifteen = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600);
+console.table(fifteen);
+
 // Array.prototype.map()
 // 2. Give us an array of the inventors' first and last names
+const fullNames = inventors.map(inventor => inventor.first + ' ' + inventor.last);
+console.log(fullNames);
+
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
+/* Long version
+const ordered = inventors.sort(function(first, second) {
+  if (first.year > second.year) {
+    return 1;
+  }
+  else {
+    return -1;
+  }
+});*/
+const ordered = inventors.sort((first, second) => first.year > second.year ? 1 : -1);
+console.table(ordered);
+
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live?
+const totalYears = inventors.reduce((total, inventor) => {
+  return total + (inventor.passed - inventor.year);
+}, 0);
+console.log(totalYears);
+
 // 5. Sort the inventors by years lived
+// for some reason this is overwriting the first sort
+const oldest = inventors.sort(function(older, younger) {
+  const lastGuy = older.passed - older.year;
+  const newGuy = younger.passed - younger.year;
+  return lastGuy > newGuy ? -1 : 1;
+});
+console.table(oldest);
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 // 7. sort Exercise
